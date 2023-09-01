@@ -1,0 +1,90 @@
+﻿
+@model IEnumerable<identity.Models.Peliculas>
+
+
+@{
+    ViewData["Title"] = "Pelicula";
+}
+
+
+
+
+<div class="text-center">
+
+    <h1 class="display-4">Peliculas </h1>
+
+</div>
+
+<a href="/Peliculas/CreateA" class="btn btn-primary">Nueva Pelicula</a>
+<br>
+<br>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-3">
+
+            <div class="card"  style="width: 15rem;">
+
+
+                <img class="card-img-top" src="@item.url2" alt="Card image cap">
+
+                <div class="card-body">
+                    <h5 class="card-title">Titulo: @item.nombre</h5>
+                    <p class="card-text">@item.sinopsis</p>
+                    <p class="card-text">Director: @item.director</p>
+                    <p class="card-text">Genero: @item.genero</p>
+                    <p class="card-text">Calificación: @item.calificacion</p>
+
+                    <a href="/Peliculas/Edit/@item.id" class="btn btn-primary">Editar</a>
+
+
+                    <a href="/Peliculas/Delete/@item.id" class="btn btn-danger">Eliminar</a>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    }     
+
+</div>
+<div style="width: 150px">
+    <canvas id="grafica"></canvas>
+</div>
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+    const ctx = document.getElementById('myChart');
+    
+
+        new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['1 Estrella','2 Estrellas','3 Estrellas','4 Estrellas','5 Estrellas'],
+      datasets: [{
+            label: 'Peliculas',
+        data: [],
+        borderWidth: 1
+      }]
+        
+    },
+    
+    options: {
+    scales: {
+        y: {
+            beginAtZero: true
+        }
+        }
+    }
+    
+        } );
+
+</script>
