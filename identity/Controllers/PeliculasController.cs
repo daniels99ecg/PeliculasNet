@@ -36,20 +36,20 @@ namespace identity.Controllers
         //Grafica
         public IActionResult graficas()
         {
-            //var Lista = (from data in _context.Peliculas.ToList()
-            //             group data by data.calificacion into gr
-            //             select new Peliculas
-            //             {
-                             
-            //                 nombre=gr.ToString(),
-            //                 calificacion=gr.Count(),
-            //             }
-            //            );
+            var Lista = (from data in _context.Peliculas.ToList()
+                         group data by data.calificacion into gr
+                         select new Peliculas
+                         {
+
+                             nombre = gr.ToString(),
+                             calificacion = gr.Count(),
+                         }
+                        );
 
 
-            //return Ok(Lista);
+            return Ok(Lista);
 
-            return View();
+            //return View();
         }
 
         /// POST Create
