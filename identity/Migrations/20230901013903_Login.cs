@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace identity.Migrations
 {
     /// <inheritdoc />
-    public partial class login : Migration
+    public partial class Login : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,6 +50,24 @@ namespace identity.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Peliculas",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    url2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    sinopsis = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    director = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    genero = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    calificacion = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Peliculas", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -215,6 +233,9 @@ namespace identity.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Peliculas");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

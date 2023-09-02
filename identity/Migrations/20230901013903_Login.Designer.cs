@@ -12,8 +12,8 @@ using identity.Areas.Identity.Data;
 namespace identity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230828233843_login")]
-    partial class login
+    [Migration("20230901013903_Login")]
+    partial class Login
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -235,6 +235,37 @@ namespace identity.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("identity.Models.Peliculas", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("calificacion")
+                        .HasColumnType("int");
+
+                    b.Property<string>("director")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("genero")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("sinopsis")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("url2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Peliculas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

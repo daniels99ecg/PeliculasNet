@@ -33,6 +33,22 @@ namespace identity.Controllers
             return View();
         }
 
+        public IActionResult graficas()
+        {
+            var Lista = (from data in _context.Peliculas.ToList()
+                         group data by data.calificacion into gr
+                         select new Peliculas
+                         {
+                             
+                             nombre=gr.ToString(),
+                             calificacion=gr.Count(),
+                         }
+                         );
+
+
+            return Ok(Lista);
+        }
+
         /// POST Create
         [HttpPost]
         // para que no cargen la bd con basura - protección del formulario

@@ -10,13 +10,7 @@
             <form method="post" asp-action="CreateA">
                 <!-- psra validar del lado del servidor-->
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="id" class="control.label"></label>
-                    <input asp-for="id" class="form-control" />
-
-                    <!-- Para vslidar el lado del cliente-->
-                    <span asp-validation-for="id" class="text-danger"></span>
-                </div>
+              
 
                 <div class="form-group">
                     <label asp-for="url2" class="control.label"></label>
