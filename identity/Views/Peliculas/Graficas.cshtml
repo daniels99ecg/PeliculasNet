@@ -1,41 +1,31 @@
 ﻿@model IEnumerable<identity.Models.Peliculas>
 
-<div style="width: 150px">
-    <canvas id="grafica"></canvas>
-</div>
-
-<div>
-    <canvas id="myChart"></canvas>
+<div style="color:white;">
+  <canvas id="myChart"></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+  const ctx = document.getElementById('myChart');
 
-    const ctx = document.getElementById('myChart');
-
-
-        new Chart(ctx, {
+  new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: [@foreach(var item in Model){@item.nombre}],
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
       datasets: [{
-            label: 'Peliculas',
-        data: [calificacion],
-        borderWidth: 1
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1,
+         backgroundColor: '#9BD0F5',
       }]
-
     },
-
     options: {
-    scales: {
+      scales: {
         y: {
-            beginAtZero: true
+          beginAtZero: true
         }
-        }
+      }
     }
-
-        } );
-
+  });
 </script>
-
