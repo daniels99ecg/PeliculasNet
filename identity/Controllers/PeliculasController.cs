@@ -34,20 +34,21 @@ namespace identity.Controllers
         }
 
         //Grafica
-        public IActionResult graficas()
+        public IActionResult Graficas()
         {
-            var Lista = (from data in _context.Peliculas.ToList()
-                         group data by data.calificacion into gr
+            List<Peliculas>Lista = (from peliculas in _context.Peliculas
+                         group peliculas by peliculas.nombre into gr
+                         orderby gr.Max(Peliculas => Peliculas.calificacion) descending
                          select new Peliculas
                          {
 
-                             nombre = gr.ToString(),
-                             calificacion = gr.Count(),
+                             nombre = gr.Key,
+                             calificacion = gr.Max(p=>p.calificacion),
                          }
-                        );
+                        ).Take(5).ToList();
 
 
-            return Ok(Lista);
+            return StatusCode(StatusCodes.Status200OK, Lista);
 
             //return View();
         }

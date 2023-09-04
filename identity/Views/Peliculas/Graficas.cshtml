@@ -1,31 +1,55 @@
-﻿@model IEnumerable<identity.Models.Peliculas>
+﻿@using Microsoft.AspNetCore.Identity;
+@using identity.Areas.Identity.Data
+@model IEnumerable<identity.Models.Peliculas>
 
 <div style="color:white;">
   <canvas id="myChart"></canvas>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-  const ctx = document.getElementById('myChart');
 
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1,
-         backgroundColor: '#9BD0F5',
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
+@section Scripts{
+                    <script>
+                function grafica(){
+                        fetch("Peliculas/Graficas")
+                    .then((response)=>{
+                        return response.ok? response.json(): Promise.reject(response)
+                    })
+                    .then((dataJson)=>{
+                        console.log(dataJson)
+                            const ctx = document.getElementById('myChart');
+
+                            const labels=dataJson.map((item)=>{return item.nombre});
+                            const values=dataJson.map((item)=>{return item.calificacion});
+
+                  new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                      labels: labels,
+                      datasets: [{
+                        label: '# of Votes',
+                        data: values,
+                        borderWidth: 1,
+                         backgroundColor: '#9BD0F5',
+                      }]
+                    },
+                    options: {
+                      scales: {
+                        y: {
+                          beginAtZero: true
+                        }
+                      }
+                    }
+                  });
+                    })
+                }
+
+
+                $(document).ready(()=>{
+                    grafica()
+                })
+
+
+            </script>
+}
+

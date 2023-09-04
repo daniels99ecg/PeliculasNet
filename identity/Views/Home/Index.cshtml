@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity;
 @using identity.Areas.Identity.Data
+@model IEnumerable<identity.Models.Peliculas>
 
 @inject UserManager<ApplicationUser> UserManager
 @{
@@ -16,4 +17,55 @@
     <img src="https://cnbl-cdn.bamgrid.com/assets/9bce375129b2760ba117de171de1835252a9971576d6246d6d57d9e36ad77228/original" style="width:50%; margin-left:5%;">
 
 </div>
+
+<div style="color:white;">
+  <canvas id="myChart"></canvas>
+</div>
+
+
+
+@section Scripts{
+                <script>
+            function grafica(){
+                    fetch("Peliculas/Graficas")
+                .then((response)=>{
+                    return response.ok? response.json(): Promise.reject(response)
+                })
+                .then((dataJson)=>{
+                    console.log(dataJson)
+                        const ctx = document.getElementById('myChart');
+
+                        const labels=dataJson.map((item)=>{return item.nombre});
+                        const values=dataJson.map((item)=>{return item.calificacion});
+
+              new Chart(ctx, {
+                type: 'bar',
+                data: {
+                  labels: labels,
+                  datasets: [{
+                    label: '# of Votes',
+                    data: values,
+                    borderWidth: 1,
+                     backgroundColor: '#9BD0F5',
+                  }]
+                },
+                options: {
+                  scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                  }
+                }
+              });
+                })
+            }
+
+
+            $(document).ready(()=>{
+                grafica()
+            })
+
+
+        </script>
+}
 
